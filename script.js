@@ -23,9 +23,17 @@ const io = new IntersectionObserver((entries) => {
 }, { threshold: 0.12 });
 document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
 
-/* мобильные тарифы: табы, собираются из таблицы (один источник данных) */
-const ptable = document.querySelector(".ptable");
-if (ptable) {
+/* мобильные тарифы: табы, собираются из таблицы (один источник данных).
+   Функция глобальная — i18n.js вызывает её заново при смене языка. */
+const T = (key) => (typeof window.AD_T === "function" ? window.AD_T(key) : key);
+
+window.buildTariffTabs = function () {
+  const ptable = document.querySelector(".ptable");
+  if (!ptable) return;
+  const old = document.querySelector(".ttabs");
+  const keepTab = old ? [...old.querySelectorAll(".ttab")].findIndex((b) => b.classList.contains("on")) : 0;
+  if (old) old.remove();
+
   const names = [...ptable.querySelectorAll("thead th")].slice(1).map((th) => th.textContent.trim());
   const featRows = [...ptable.querySelectorAll("tbody tr:not(.price-row)")].map((tr) => {
     const tds = [...tr.querySelectorAll("td")];
@@ -39,21 +47,22 @@ if (ptable) {
   box.className = "ttabs";
   box.innerHTML =
     '<div class="ttabs-bar">' +
-    names.map((n, i) => `<button type="button" class="ttab${i === 0 ? " on" : ""}" data-i="${i}">${n}</button>`).join("") +
+    names.map((n, i) => `<button type="button" class="ttab" data-i="${i}">${n}</button>`).join("") +
     '</div><div class="ttabs-card"><div class="ttabs-price" id="ttPrice"></div><ul class="ttabs-list" id="ttList"></ul><p class="ttabs-more" id="ttMore"></p></div>';
   document.querySelector(".ptable-scroll").after(box);
 
   function renderTab(i) {
     box.querySelectorAll(".ttab").forEach((b, n) => b.classList.toggle("on", n === i));
-    document.getElementById("ttPrice").innerHTML = prices[i] + ' <span>за м²</span>';
+    document.getElementById("ttPrice").innerHTML = prices[i] + " <span>" + T("tbl.unit") + "</span>";
     const included = featRows.filter((r) => r.inc[i]);
     document.getElementById("ttList").innerHTML = included.map((r) => `<li>${r.feat}</li>`).join("");
     const rest = featRows.length - included.length;
-    document.getElementById("ttMore").textContent = rest > 0 ? `Ещё ${rest} позиций — в старших тарифах` : "Максимальная комплектация проекта";
+    document.getElementById("ttMore").textContent = rest > 0 ? T("tt.more").replace("{n}", rest) : T("tt.max");
   }
   box.querySelectorAll(".ttab").forEach((b) => b.addEventListener("click", () => renderTab(+b.dataset.i)));
-  renderTab(0);
-}
+  renderTab(keepTab > 0 ? keepTab : 0);
+};
+window.buildTariffTabs();
 
 /* карусель проектов */
 const track = document.getElementById("projTrack");

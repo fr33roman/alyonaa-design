@@ -62,6 +62,13 @@ h2.title { font-size: clamp(34px, 5.5vw, 64px); font-weight: 500; letter-spacing
 .nav-left-label { justify-self: start; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; }
 .brand { font-family: var(--font-serif); font-size: 24px; letter-spacing: 0.28em; text-transform: uppercase; text-align: center; }
 .nav-right-group { display: flex; align-items: center; justify-content: flex-end; gap: 24px; }
+
+/* переключатель языка RU / EN */
+.lang-sw { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; }
+.lang-sw button { background: none; border: none; padding: 0; color: currentColor; opacity: 0.45; cursor: pointer; font: inherit; letter-spacing: inherit; transition: opacity 0.2s; }
+.lang-sw button:hover { opacity: 0.85; }
+.lang-sw button.on { opacity: 1; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px; }
+.lang-sw .sep { opacity: 0.35; }
 .nav-contacts, .nav-menu-btn { font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: currentColor; }
 /* выделение при наведении — подчёркивание, а не смена цвета (цвет сливался с фоном) */
 .nav-left-label:hover, .nav-contacts:hover, .nav-menu-btn:hover {
@@ -280,10 +287,11 @@ html.js .reveal.in { opacity: 1; transform: none; }
   .section { padding: 72px 0; }
   .nav-left-label { display: none; }
   .nav-inner { grid-template-columns: 1fr auto; }
-  .nav-right-group { gap: 16px; }
+  .nav-right-group { gap: 12px; }
   .nav-contacts { display: none; }  /* на телефоне «Контакты» доступны в боковом меню */
-  .nav-menu-btn { font-size: 11px; letter-spacing: 0.12em; }
-  .brand { text-align: left; font-size: 16px; letter-spacing: 0.1em; }
+  .nav-menu-btn { font-size: 11px; letter-spacing: 0.1em; gap: 7px; }
+  .lang-sw { font-size: 11px; letter-spacing: 0.1em; gap: 4px; }
+  .brand { text-align: left; font-size: 15px; letter-spacing: 0.08em; }
   .hero { height: 88vh; }
   .pbento { grid-template-columns: repeat(2, 1fr) !important; grid-auto-rows: clamp(120px, 32vw, 190px); gap: 10px; }
   .pbento .pt:nth-child(1) { grid-column: span 2 !important; grid-row: span 1 !important; }
