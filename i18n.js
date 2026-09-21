@@ -172,8 +172,9 @@ function adApplyLang(lang) {
 document.addEventListener("DOMContentLoaded", () => {
   let saved = null;
   try { saved = localStorage.getItem("ad_lang"); } catch (_) {}
-  const browser = (navigator.language || "ru").slice(0, 2).toLowerCase();
-  adApplyLang(saved || (browser === "ru" ? "ru" : "en"));
+  // При первом заходе всегда русский: сайт русскоязычный, английский — по выбору в шапке.
+  // Раньше язык брался у браузера, и у всех с нерусской системой сайт открывался на английском.
+  adApplyLang(saved || "ru");
 
   document.querySelectorAll(".lang-sw button").forEach((b) =>
     b.addEventListener("click", () => adApplyLang(b.getAttribute("data-lang")))
