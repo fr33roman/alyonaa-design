@@ -164,38 +164,80 @@ h2.title { font-size: clamp(34px, 5.5vw, 64px); font-weight: 500; letter-spacing
 .services .head h2 { margin-top: 12px; }
 .services .head p { max-width: 560px; margin: 16px auto 0; color: var(--text); }
 
-.ptable-scroll { overflow-x: auto; margin-top: 48px; -webkit-overflow-scrolling: touch; }
-.ptable { width: 100%; min-width: 720px; border-collapse: collapse; background: var(--card); border: 1px solid var(--line); }
-.ptable th, .ptable td { padding: 16px 18px; text-align: center; border-right: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); }
-.ptable th:first-child, .ptable td:first-child { text-align: left; }
-.ptable thead th { background: var(--ink); color: var(--cream); font-family: var(--font-serif); font-size: 20px; font-weight: 500; letter-spacing: 0.04em; border-right-color: rgba(255,255,255,0.12); }
-.ptable thead th:first-child { background: var(--ink); }
-.ptable .feat { font-size: 14.5px; color: var(--text); width: 38%; }
-.ptable .star { color: var(--gold); font-size: 17px; }
-.ptable .no { color: var(--line); }
-.ptable tbody tr:hover { background: var(--cream); }
-.ptable .price-row td { border-bottom: none; }
-.ptable .price-row .feat { font-family: var(--font-serif); font-size: 17px; color: var(--ink); }
-.ptable .pcell { line-height: 1.55; }
-.ptable .pcell .pc { display: block; font-family: var(--font-serif); font-size: 18px; font-weight: 600; color: var(--ink) !important; }
-.ptable .pcell .unit { display: block; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
-.ptable thead th .num { display: block; font-family: var(--font-sans); font-size: 10px; letter-spacing: 0.18em; opacity: 0.6; margin-bottom: 4px; }
-
-/* мобильные тарифы-табы (создаются скриптом, видны только на телефоне) */
-.ttabs { display: none; margin-top: 34px; }
-.ttabs-bar { display: flex; border: 1px solid var(--line); border-radius: 100px; padding: 4px; background: var(--card); gap: 4px; }
-.ttab {
-  flex: 1; padding: 11px 6px; border-radius: 100px; font-family: inherit;
-  font-size: 13.5px; color: var(--brown); transition: 0.25s;
+/* выбор валюты над тарифами */
+.cur { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 10px; margin-top: 34px; }
+.cur-l { font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--muted); margin-right: 6px; }
+.cur-b {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 16px;
+  border: 1px solid var(--line); border-radius: 100px; background: var(--card);
+  color: var(--brown); font-size: 13px; letter-spacing: 0.08em; transition: 0.25s;
 }
-.ttab.on { background: var(--ink); color: var(--cream); }
-.ttabs-card { margin-top: 14px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 22px 20px; box-shadow: 0 16px 40px rgba(46, 40, 32, 0.08); }
-.ttabs-price { font-family: var(--font-serif); font-size: 21px; font-weight: 600; color: var(--ink); padding-bottom: 14px; border-bottom: 1px solid var(--line-soft); }
-.ttabs-price span { font-size: 11px; font-family: var(--font-sans, inherit); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 400; }
-.ttabs-list { list-style: none; margin-top: 14px; }
-.ttabs-list li { position: relative; padding: 6px 0 6px 26px; font-size: 14.5px; color: var(--text); }
-.ttabs-list li::before { content: "★"; position: absolute; left: 2px; color: var(--gold); font-size: 12px; }
-.ttabs-more { margin-top: 12px; font-size: 12.5px; color: var(--muted); }
+.cur-b b { font-weight: 600; color: var(--ink); }
+.cur-b:hover { border-color: var(--ink); }
+.cur-b[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--cream); }
+.cur-b[aria-pressed="true"] b { color: var(--cream); }
+.cur-b:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+/* тарифы карточками: плашка, название, для кого, цена за м², что входит, кнопка; средняя выделена.
+   Карточки объёмные: свет сверху, толщина листа, тень от пола; на компьютере —
+   ряд в перспективе: «Базовый» впереди, боковые чуть развёрнуты к нему и отодвинуты вглубь,
+   под курсором карточка поворачивается к человеку и по ней скользит блик */
+.plans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin-top: 26px; align-items: stretch; }
+.plan {
+  --z: 0px; --ry: 0deg; --tx: 0deg; --ty: 0deg; --gx: 50%; --gy: 0%;
+  position: relative; display: flex; flex-direction: column;
+  background: linear-gradient(165deg, #fbf8f2 0%, var(--card) 42%, #f1eadc 100%);
+  border: 1px solid var(--line); border-radius: 8px; padding: 28px 26px 26px;
+  /* свет по верхней кромке, толщина листа (плотная полоса снизу) и две тени — близкая и далёкая */
+  --edge: #ddd1bd;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 6px 0 -1px var(--edge),
+    0 7px 0 -1px rgba(46, 40, 32, 0.1),
+    0 16px 26px -8px rgba(46, 40, 32, 0.16),
+    0 44px 74px -26px rgba(46, 40, 32, 0.32);
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.45s ease, border-color 0.3s;
+}
+/* блик под курсором */
+.plan::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0;
+  background: radial-gradient(circle at var(--gx) var(--gy), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0) 55%);
+  transition: opacity 0.4s ease;
+}
+.plan--main { border-color: var(--gold); --edge: #cdb99a; }
+.plan-tag {
+  align-self: flex-start; font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; line-height: 1.4;
+  color: var(--brown); background: var(--cream); border: 1px solid var(--line); border-radius: 100px; padding: 5px 12px;
+}
+.plan--main .plan-tag { background: var(--ink); border-color: var(--ink); color: var(--cream); }
+.plan-name { font-size: 34px; margin-top: 18px; }
+.plan-for { font-size: 14.5px; line-height: 1.6; color: var(--text); margin-top: 10px; min-height: 3.2em; }
+.plan-price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px; margin-top: 20px; }
+.plan-sum { font-family: var(--font-serif); font-size: 46px; font-weight: 600; line-height: 1; color: var(--ink); white-space: nowrap; }
+.plan-old { font-size: 17px; color: var(--muted); text-decoration-thickness: 1.5px; white-space: nowrap; }
+.plan-off {
+  align-self: center; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; white-space: nowrap;
+  color: #fff; background: #5f7f4e; border-radius: 100px; padding: 3px 9px; line-height: 1.4;
+}
+.plan-unit { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.plan-alt { font-size: 13px; color: var(--muted); margin-top: 8px; padding-bottom: 18px; border-bottom: 1px solid var(--line-soft); }
+.plan-list { list-style: none; margin: 16px 0 24px; display: grid; gap: 9px; }
+.plan-list li { position: relative; padding-left: 26px; font-size: 14.5px; line-height: 1.5; color: var(--text); }
+.plan-list li::before {
+  content: ""; position: absolute; left: 3px; top: 0.42em; width: 10px; height: 5px;
+  border-left: 1.6px solid var(--gold); border-bottom: 1.6px solid var(--gold); transform: rotate(-45deg);
+}
+.plan-list li.plan-plus { font-style: italic; color: var(--brown); }
+@media (min-width: 961px) {
+  .plans { perspective: 1500px; perspective-origin: 50% 35%; }
+  .plan { transform: translateZ(var(--z)) rotateY(calc(var(--ry) + var(--ty))) rotateX(var(--tx)); }
+  .plans .plan:first-child { --z: -56px; --ry: 9deg; }
+  .plans .plan:last-child { --z: -56px; --ry: -9deg; }
+  .plan--main { --z: 18px; z-index: 2; }
+  .plans .plan:hover { --z: 30px; --ry: 0deg; z-index: 3; }
+  .plan:hover::after { opacity: 1; }
+}
+.plan-btn { margin-top: auto; width: 100%; justify-content: center; min-height: 48px; }
 
 .extras-block { margin-top: 28px; display: grid; grid-template-columns: 1fr; }
 .extras-title { font-family: var(--font-serif); font-size: clamp(22px,3vw,30px); color: var(--ink); margin-bottom: 14px; }
@@ -206,6 +248,36 @@ h2.title { font-size: clamp(34px, 5.5vw, 64px); font-weight: 500; letter-spacing
 .extra-row .ename { font-size: 14.5px; }
 .extra-row .ecost { font-weight: 600; white-space: nowrap; color: var(--ink); font-size: 14.5px; }
 .tnote { margin-top: 16px; font-size: 13px; color: var(--muted); }
+
+/* ---------- планировка в 3D (эффект № 40 с полки lab/effects, fx/floorplan.js) ----------
+   Высокая секция: сцена прилипает к экрану, прокрутка ведёт историю — чертёж встаёт в объём,
+   комнаты наполняются мебелью, в конце облёт. Подпись видна в начале и в конце. */
+.fx { position: relative; background: #f1ede6; }
+html.js .fx--tall { height: var(--h, 280vh); }
+.fx__stage { position: relative; height: 100vh; height: 100svh; min-height: 560px; overflow: hidden; background: #f1ede6; }
+html.js .fx--tall .fx__stage { position: sticky; top: 0; }
+.fx__gl { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+/* светлая подложка под подписью: текст читается поверх макета */
+.fx__stage::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 55%; z-index: 3; pointer-events: none;
+  background: linear-gradient(0deg, rgba(243, 237, 225, 0.95) 0%, rgba(243, 237, 225, 0.6) 40%, rgba(243, 237, 225, 0) 100%);
+}
+.fx__cap {
+  position: absolute; z-index: 5; left: max(5vw, calc((100vw - 1180px) / 2)); bottom: clamp(28px, 8vh, 84px);
+  max-width: 460px; pointer-events: none;
+}
+html.js .fx--tall .fx__cap { opacity: var(--capo, 1); transition: opacity 0.25s; }
+.fx.cap-on .fx__cap .btn, html:not(.js) .fx__cap .btn { pointer-events: auto; }
+.fx__cap .kicker { display: block; margin-bottom: 12px; }
+.fx__cap h2 { font-size: clamp(34px, 5vw, 60px); font-weight: 500; letter-spacing: 0.01em; }
+.fx__cap p { margin: 14px 0 22px; max-width: 420px; color: var(--text); }
+/* эффект не запустился (нет WebGL) — секция в один экран, остаётся подпись */
+html.js .fx.is-broken { height: auto; }
+@media (max-width: 760px) {
+  .fx__cap { left: 5vw; right: 5vw; bottom: 30px; max-width: none; }
+  .fx__cap h2 { font-size: 34px; }
+  .fx__cap p { font-size: 15.5px; margin: 10px 0 16px; }
+}
 
 /* ---------- testimonial ---------- */
 .testi { position: relative; color: var(--cream); text-align: center; }
@@ -263,7 +335,6 @@ html.js .reveal.in { opacity: 1; transform: none; }
 .pt:hover { transform: translateY(-6px); box-shadow: 0 28px 52px rgba(46, 40, 32, 0.22); z-index: 2; }
 
 /* мягкие тени для глубины */
-.ptable { box-shadow: 0 26px 60px rgba(46, 40, 32, 0.08); }
 .extras { box-shadow: 0 16px 40px rgba(46, 40, 32, 0.06); }
 .btn:hover { transform: translateY(-2px); }
 .brand { transition: letter-spacing 0.4s ease; }
@@ -273,6 +344,7 @@ html.js .reveal.in { opacity: 1; transform: none; }
   html.js .reveal { opacity: 1; transform: none; }
   .hero-bg img { animation: none; }
   .pt:hover, .btn:hover { transform: none; }
+  .plan { transition: none; }
   .nav:hover .brand { letter-spacing: 0.28em; }
 }
 
@@ -282,6 +354,9 @@ html.js .reveal.in { opacity: 1; transform: none; }
   .philo-photo { max-width: 440px; }
   .contact-grid2 { grid-template-columns: 1fr; gap: 44px; }
   .contact-photo { max-width: 400px; }
+  /* тарифы стопкой: карточка на всю ширину читается лучше трёх узких */
+  .plans { grid-template-columns: 1fr; max-width: 560px; margin-left: auto; margin-right: auto; }
+  .plan-for { min-height: 0; }
 }
 @media (max-width: 600px) {
   .section { padding: 72px 0; }
@@ -299,8 +374,9 @@ html.js .reveal.in { opacity: 1; transform: none; }
   .pbento.n2 { grid-auto-rows: clamp(200px, 56vw, 300px); }
   .pbento.n2 .pt:nth-child(1) { grid-column: span 1 !important; }
   .extra-row { grid-template-columns: 1fr; gap: 3px; }
-  .ptable thead th { font-size: 16px; }
-  /* на телефоне вместо широкой таблицы — компактные табы (если работает JS) */
-  html.js .ptable-scroll { display: none; }
-  html.js .ttabs { display: block; }
+  .cur-l { width: 100%; text-align: center; margin: 0 0 2px; }
+  .cur-b { min-height: 44px; }
+  .plan { padding: 24px 20px 22px; }
+  .plan-name { font-size: 30px; }
+  .plan-sum { font-size: 40px; }
 }

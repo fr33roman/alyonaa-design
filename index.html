@@ -10,6 +10,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <script>document.documentElement.classList.add("js");</script>
+  <!-- 3D-библиотека для блока «Планировка в 3D»; грузится, только когда до блока докрутили (fx/loader.js) -->
+  <script type="importmap">
+  { "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+  } }
+  </script>
 </head>
 <body>
 
@@ -61,6 +68,18 @@
         <p data-i18n="philo.p1">Алёна Андреева — ваш дизайнер интерьера! Главное для меня — вы, а не рамки конкретного стиля. Мы вместе поймём, какая атмосфера делает именно ВАШ дом по-настоящему ВАШИМ.</p>
         <p data-i18n="philo.p2">Я создаю не просто картинки, а продуманную функциональность и детальные чертежи для строителей. У меня за плечами более четырёх лет работы в Грузии, России, Беларуси и по всему миру.</p>
         <a class="btn" href="#contact" data-i18n="philo.btn">Связаться</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ПЛАНИРОВКА В 3D: при прокрутке чертёж встаёт в объём, комнаты наполняются мебелью -->
+  <section class="fx fx--tall" id="plan3d" data-fx="floorplan" data-scroll style="--h:280vh">
+    <div class="fx__stage">
+      <div class="fx__cap">
+        <span class="kicker" data-i18n="fx.kicker">3D-визуализация</span>
+        <h2 data-i18n="fx.h2">Квартира в 3D до ремонта</h2>
+        <p data-i18n="fx.p">По вашему плану соберу квартиру в 3D, с мебелью и светом.</p>
+        <a class="btn" href="#services" data-i18n="fx.btn">Смотреть тарифы</a>
       </div>
     </div>
   </section>
@@ -125,44 +144,76 @@
       <div class="head reveal">
         <span class="kicker" data-i18n="svc.kicker">Услуги и цены</span>
         <h2 class="title" data-i18n="svc.h2">Что входит в тарифы</h2>
-        <p data-i18n="svc.p">Стоимость считается за квадратный метр. Чем выше тариф — тем полнее комплект проектной документации. Звёздочкой отмечено то, что входит в тариф.</p>
+        <p data-i18n="svc.p">Стоимость считается за квадратный метр. Чем выше тариф — тем полнее комплект проектной документации.</p>
       </div>
 
-      <div class="ptable-scroll reveal">
-        <table class="ptable">
-          <thead>
-            <tr>
-              <th data-i18n="tbl.h0">Что входит</th>
-              <th data-i18n="tbl.plan">Планировка</th>
-              <th data-i18n="tbl.basic">Базовый</th>
-              <th data-i18n="tbl.full">Полный</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="popular-col"><td class="feat" data-i18n="f1">Исходный план</td><td class="star">★</td><td class="star">★</td><td class="star">★</td></tr>
-            <tr class="popular-col"><td class="feat" data-i18n="f2">План демонтажа / монтажа</td><td class="star">★</td><td class="star">★</td><td class="star">★</td></tr>
-            <tr class="popular-col"><td class="feat" data-i18n="f3">Новый обмерный план</td><td class="star">★</td><td class="star">★</td><td class="star">★</td></tr>
-            <tr class="popular-col"><td class="feat" data-i18n="f4">Планировочное решение</td><td class="star">★</td><td class="star">★</td><td class="star">★</td></tr>
-            <tr class="popular-col"><td class="feat" data-i18n="f5">3D-визуализация интерьера</td><td class="star">★</td><td class="star">★</td><td class="star">★</td></tr>
-            <tr class="popular-col"><td class="feat" data-i18n="f6">План потолков</td><td class="no">—</td><td class="star">★</td><td class="star">★</td></tr>
-            <tr class="popular-col"><td class="feat" data-i18n="f7">План электрики</td><td class="no">—</td><td class="star">★</td><td class="star">★</td></tr>
-            <tr class="popular-col"><td class="feat" data-i18n="f8">План освещения</td><td class="no">—</td><td class="star">★</td><td class="star">★</td></tr>
-            <tr class="popular-col"><td class="feat" data-i18n="f9">План управления освещением</td><td class="no">—</td><td class="star">★</td><td class="star">★</td></tr>
-            <tr class="popular-col"><td class="feat" data-i18n="f10">План сантехники</td><td class="no">—</td><td class="star">★</td><td class="star">★</td></tr>
-            <tr class="popular-col"><td class="feat" data-i18n="f11">План тёплых полов</td><td class="no">—</td><td class="no">—</td><td class="star">★</td></tr>
-            <tr class="popular-col"><td class="feat" data-i18n="f12">План раскладки полов</td><td class="no">—</td><td class="no">—</td><td class="star">★</td></tr>
-            <tr class="popular-col"><td class="feat" data-i18n="f13">План дверей и кондиционеров</td><td class="no">—</td><td class="no">—</td><td class="star">★</td></tr>
-            <tr class="popular-col"><td class="feat" data-i18n="f14">План плинтусов и карнизов</td><td class="no">—</td><td class="no">—</td><td class="star">★</td></tr>
-            <tr class="popular-col"><td class="feat" data-i18n="f15">Развёртки стен</td><td class="no">—</td><td class="no">—</td><td class="star">★</td></tr>
-            <tr class="popular-col"><td class="feat" data-i18n="f16">Таблица отделки по проекту (плитка, ламинат, кварцвинил, паркет и т.д.)</td><td class="no">—</td><td class="no">—</td><td class="star">★</td></tr>
-            <tr class="price-row popular-col">
-              <td class="feat" data-i18n="tbl.price">Цена за м²</td>
-              <td class="pcell"><span class="pc">700 ₽</span><span class="pc">9 $</span><span class="pc">24 ₾</span><span class="unit" data-i18n="tbl.unit">за м²</span></td>
-              <td class="pcell"><span class="pc">1000 ₽</span><span class="pc">13 $</span><span class="pc">34 ₾</span><span class="unit" data-i18n="tbl.unit">за м²</span></td>
-              <td class="pcell"><span class="pc">1600 ₽</span><span class="pc">21 $</span><span class="pc">55 ₾</span><span class="unit" data-i18n="tbl.unit">за м²</span></td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- валюта цен: выбор запоминается; без выбора — по языку сайта (RU → ₽, EN → $) -->
+      <div class="cur reveal" role="group" aria-labelledby="curLabel">
+        <span class="cur-l" id="curLabel" data-i18n="cur.label">Цены в валюте</span>
+        <button type="button" class="cur-b" data-cur="rub" aria-pressed="true"><b>₽</b> RUB</button>
+        <button type="button" class="cur-b" data-cur="usd" aria-pressed="false"><b>$</b> USD</button>
+        <button type="button" class="cur-b" data-cur="gel" aria-pressed="false"><b>₾</b> GEL</button>
+      </div>
+
+      <!-- тарифы карточками (было: таблица). Цены — заданные Алёной в трёх валютах, не пересчёт.
+           В объёме: «Базовый» впереди, боковые чуть развёрнуты и отодвинуты вглубь; появляются всем рядом -->
+      <div class="plans reveal">
+        <article class="plan">
+          <span class="plan-tag" data-i18n="pl1.tag">Зонирование и 3D</span>
+          <h3 class="plan-name" data-i18n="tbl.plan">Планировка</h3>
+          <p class="plan-for" data-i18n="pl1.for">Зонирование квартиры и 3D-вид будущего интерьера до начала ремонта.</p>
+          <div class="plan-price"><b class="plan-sum" data-rub="700 ₽" data-usd="9 $" data-gel="24 ₾">700 ₽</b><span class="plan-unit" data-i18n="tbl.unit">за м²</span></div>
+          <p class="plan-alt" data-rub="9 $ · 24 ₾" data-usd="700 ₽ · 24 ₾" data-gel="700 ₽ · 9 $">9 $ · 24 ₾</p>
+          <ul class="plan-list">
+            <li data-i18n="f1">Исходный план</li>
+            <li data-i18n="f2">План демонтажа / монтажа</li>
+            <li data-i18n="f3">Новый обмерный план</li>
+            <li data-i18n="f4">Планировочное решение</li>
+            <li data-i18n="f5">3D-визуализация интерьера</li>
+          </ul>
+          <a class="btn plan-btn" href="#contact" data-i18n="pl1.btn">Выбрать «Планировку»</a>
+        </article>
+
+        <article class="plan plan--main">
+          <span class="plan-tag" data-i18n="pl2.tag">Со скидкой</span>
+          <h3 class="plan-name" data-i18n="tbl.basic">Базовый</h3>
+          <p class="plan-for" data-i18n="pl2.for">3D-визуализация и чертежи электрики, освещения и сантехники для строителей.</p>
+          <!-- скидка только на «Базовый»: обычная цена 1200 ₽ / 15 $ / 38 ₾, сейчас — 1000 ₽ / 13 $ / 34 ₾ -->
+          <div class="plan-price">
+            <b class="plan-sum" data-rub="1000 ₽" data-usd="13 $" data-gel="34 ₾">1000 ₽</b>
+            <s class="plan-old" data-rub="1200 ₽" data-usd="15 $" data-gel="38 ₾">1200 ₽</s>
+            <span class="plan-off" data-rub="−17%" data-usd="−13%" data-gel="−11%">−17%</span>
+            <span class="plan-unit" data-i18n="tbl.unit">за м²</span>
+          </div>
+          <p class="plan-alt" data-rub="13 $ · 34 ₾" data-usd="1000 ₽ · 34 ₾" data-gel="1000 ₽ · 13 $">13 $ · 34 ₾</p>
+          <ul class="plan-list">
+            <li class="plan-plus" data-i18n="pl2.plus">Всё из «Планировки»</li>
+            <li data-i18n="f6">План потолков</li>
+            <li data-i18n="f7">План электрики</li>
+            <li data-i18n="f8">План освещения</li>
+            <li data-i18n="f9">План управления освещением</li>
+            <li data-i18n="f10">План сантехники</li>
+          </ul>
+          <a class="btn btn-fill plan-btn" href="#contact" data-i18n="pl2.btn">Выбрать «Базовый»</a>
+        </article>
+
+        <article class="plan">
+          <span class="plan-tag" data-i18n="pl3.tag">Все чертежи</span>
+          <h3 class="plan-name" data-i18n="tbl.full">Полный</h3>
+          <p class="plan-for" data-i18n="pl3.for">Все чертежи для ремонта, от тёплых полов до таблицы отделки.</p>
+          <div class="plan-price"><b class="plan-sum" data-rub="1600 ₽" data-usd="21 $" data-gel="55 ₾">1600 ₽</b><span class="plan-unit" data-i18n="tbl.unit">за м²</span></div>
+          <p class="plan-alt" data-rub="21 $ · 55 ₾" data-usd="1600 ₽ · 55 ₾" data-gel="1600 ₽ · 21 $">21 $ · 55 ₾</p>
+          <ul class="plan-list">
+            <li class="plan-plus" data-i18n="pl3.plus">Всё из «Базового»</li>
+            <li data-i18n="f11">План тёплых полов</li>
+            <li data-i18n="f12">План раскладки полов</li>
+            <li data-i18n="f13">План дверей и кондиционеров</li>
+            <li data-i18n="f14">План плинтусов и карнизов</li>
+            <li data-i18n="f15">Развёртки стен</li>
+            <li data-i18n="f16">Таблица отделки по проекту (плитка, ламинат, кварцвинил, паркет и т.д.)</li>
+          </ul>
+          <a class="btn plan-btn" href="#contact" data-i18n="pl3.btn">Выбрать «Полный»</a>
+        </article>
       </div>
       <p class="tnote" data-i18n="tnote">Срок проекта — от 1 до 2,5 месяцев. Оплата поэтапно по договору: в рублях на российскую карту или в долларах / лари на грузинскую.</p>
 
@@ -229,5 +280,6 @@
 
 <script src="i18n.js"></script>
 <script src="script.js"></script>
+<script type="module" src="fx/loader.js"></script>
 </body>
 </html>

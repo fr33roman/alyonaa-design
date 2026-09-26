@@ -23,46 +23,48 @@ const io = new IntersectionObserver((entries) => {
 }, { threshold: 0.12 });
 document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
 
-/* мобильные тарифы: табы, собираются из таблицы (один источник данных).
-   Функция глобальная — i18n.js вызывает её заново при смене языка. */
-const T = (key) => (typeof window.AD_T === "function" ? window.AD_T(key) : key);
-
-window.buildTariffTabs = function () {
-  const ptable = document.querySelector(".ptable");
-  if (!ptable) return;
-  const old = document.querySelector(".ttabs");
-  const keepTab = old ? [...old.querySelectorAll(".ttab")].findIndex((b) => b.classList.contains("on")) : 0;
-  if (old) old.remove();
-
-  const names = [...ptable.querySelectorAll("thead th")].slice(1).map((th) => th.textContent.trim());
-  const featRows = [...ptable.querySelectorAll("tbody tr:not(.price-row)")].map((tr) => {
-    const tds = [...tr.querySelectorAll("td")];
-    return { feat: tds[0].textContent.trim(), inc: tds.slice(1).map((td) => td.classList.contains("star")) };
+/* тарифы: валюта цен ₽ / $ / ₾. Цены в карточках заданы Алёной в каждой валюте (data-rub/-usd/-gel),
+   это не пересчёт по курсу. Выбор посетителя запоминается; пока он не выбрал — по языку сайта:
+   русский → рубли, английский → доллары. i18n.js зовёт window.adOnLang при каждой смене языка. */
+const CUR_KEY = "ad_cur";
+function setCur(cur, save) {
+  document.querySelectorAll("[data-rub]").forEach((el) => {
+    const v = el.getAttribute("data-" + cur);
+    if (v) el.textContent = v;
   });
-  const prices = [...ptable.querySelectorAll(".price-row .pcell")].map((td) =>
-    [...td.querySelectorAll(".pc")].map((s) => s.textContent.trim()).join(" · ")
+  document.querySelectorAll(".cur-b").forEach((b) =>
+    b.setAttribute("aria-pressed", b.getAttribute("data-cur") === cur ? "true" : "false")
   );
+  if (save) { try { localStorage.setItem(CUR_KEY, cur); } catch (_) {} }
+}
+document.querySelectorAll(".cur-b").forEach((b) =>
+  b.addEventListener("click", () => setCur(b.getAttribute("data-cur"), true))
+);
+/* тарифы в объёме: под курсором карточка поворачивается к человеку, по ней скользит блик.
+   Только мышь на широком экране и только без «уменьшить движение» в системе */
+if (matchMedia("(hover: hover) and (pointer: fine) and (min-width: 961px)").matches &&
+    !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  document.querySelectorAll(".plan").forEach((card) => {
+    card.addEventListener("pointermove", (e) => {
+      const r = card.getBoundingClientRect();
+      const u = (e.clientX - r.left) / r.width, v = (e.clientY - r.top) / r.height;
+      card.style.setProperty("--ty", ((u - 0.5) * 8).toFixed(2) + "deg");
+      card.style.setProperty("--tx", ((0.5 - v) * 6).toFixed(2) + "deg");
+      card.style.setProperty("--gx", (u * 100).toFixed(1) + "%");
+      card.style.setProperty("--gy", (v * 100).toFixed(1) + "%");
+    });
+    card.addEventListener("pointerleave", () => {
+      card.style.removeProperty("--tx");
+      card.style.removeProperty("--ty");
+    });
+  });
+}
 
-  const box = document.createElement("div");
-  box.className = "ttabs";
-  box.innerHTML =
-    '<div class="ttabs-bar">' +
-    names.map((n, i) => `<button type="button" class="ttab" data-i="${i}">${n}</button>`).join("") +
-    '</div><div class="ttabs-card"><div class="ttabs-price" id="ttPrice"></div><ul class="ttabs-list" id="ttList"></ul><p class="ttabs-more" id="ttMore"></p></div>';
-  document.querySelector(".ptable-scroll").after(box);
-
-  function renderTab(i) {
-    box.querySelectorAll(".ttab").forEach((b, n) => b.classList.toggle("on", n === i));
-    document.getElementById("ttPrice").innerHTML = prices[i] + " <span>" + T("tbl.unit") + "</span>";
-    const included = featRows.filter((r) => r.inc[i]);
-    document.getElementById("ttList").innerHTML = included.map((r) => `<li>${r.feat}</li>`).join("");
-    const rest = featRows.length - included.length;
-    document.getElementById("ttMore").textContent = rest > 0 ? T("tt.more").replace("{n}", rest) : T("tt.max");
-  }
-  box.querySelectorAll(".ttab").forEach((b) => b.addEventListener("click", () => renderTab(+b.dataset.i)));
-  renderTab(keepTab > 0 ? keepTab : 0);
+window.adOnLang = function (lang) {
+  let saved = null;
+  try { saved = localStorage.getItem(CUR_KEY); } catch (_) {}
+  setCur(saved || (lang === "en" ? "usd" : "rub"), false);
 };
-window.buildTariffTabs();
 
 /* карусель проектов */
 const track = document.getElementById("projTrack");

@@ -28,8 +28,23 @@ const AD_I18N = {
     "testi": "Настоящий дом — это про вашу жизнь и комфорт, а не про идеальные картинки.",
     "svc.kicker": "Услуги и цены",
     "svc.h2": "Что входит в тарифы",
-    "svc.p": "Стоимость считается за квадратный метр. Чем выше тариф — тем полнее комплект проектной документации. Звёздочкой отмечено то, что входит в тариф.",
-    "tbl.h0": "Что входит",
+    "svc.p": "Стоимость считается за квадратный метр. Чем выше тариф — тем полнее комплект проектной документации.",
+    "cur.label": "Цены в валюте",
+    "pl1.tag": "Зонирование и 3D",
+    "pl2.tag": "Со скидкой",
+    "pl3.tag": "Все чертежи",
+    "pl1.for": "Зонирование квартиры и 3D-вид будущего интерьера до начала ремонта.",
+    "pl2.for": "3D-визуализация и чертежи электрики, освещения и сантехники для строителей.",
+    "pl3.for": "Все чертежи для ремонта, от тёплых полов до таблицы отделки.",
+    "pl2.plus": "Всё из «Планировки»",
+    "pl3.plus": "Всё из «Базового»",
+    "fx.kicker": "3D-визуализация",
+    "fx.h2": "Квартира в 3D до ремонта",
+    "fx.p": "По вашему плану соберу квартиру в 3D, с мебелью и светом.",
+    "fx.btn": "Смотреть тарифы",
+    "pl1.btn": "Выбрать «Планировку»",
+    "pl2.btn": "Выбрать «Базовый»",
+    "pl3.btn": "Выбрать «Полный»",
     "tbl.plan": "Планировка",
     "tbl.basic": "Базовый",
     "tbl.full": "Полный",
@@ -49,7 +64,6 @@ const AD_I18N = {
     "f14": "План плинтусов и карнизов",
     "f15": "Развёртки стен",
     "f16": "Таблица отделки по проекту (плитка, ламинат, кварцвинил, паркет и т.д.)",
-    "tbl.price": "Цена за м²",
     "tbl.unit": "за м²",
     "tnote": "Срок проекта — от 1 до 2,5 месяцев. Оплата поэтапно по договору: в рублях на российскую карту или в долларах / лари на грузинскую.",
     "extras.title": "Дополнительные услуги — отдельно",
@@ -66,8 +80,6 @@ const AD_I18N = {
     "footer.tag": "Дизайн интерьера · спокойные пространства для осознанной жизни",
     "footer.copy": "© 2026 Alyonaa Design · Батуми",
     "footer.online": "Онлайн по всему миру",
-    "tt.more": "Ещё {n} позиций — в старших тарифах",
-    "tt.max": "Максимальная комплектация проекта",
   },
 
   en: {
@@ -95,8 +107,23 @@ const AD_I18N = {
     "testi": "A real home is about your life and your comfort — not about perfect pictures.",
     "svc.kicker": "Services & Pricing",
     "svc.h2": "What each package includes",
-    "svc.p": "Pricing is per square metre. The higher the package, the more complete the set of drawings and documentation. A star marks what's included in each package.",
-    "tbl.h0": "What's included",
+    "svc.p": "Pricing is per square metre. The higher the package, the more complete the set of drawings and documentation.",
+    "cur.label": "Prices in",
+    "pl1.tag": "Zoning & 3D",
+    "pl2.tag": "Discounted",
+    "pl3.tag": "Every drawing",
+    "pl1.for": "Zoning and a 3D view of your future interior before the renovation starts.",
+    "pl2.for": "3D visualisation plus electrical, lighting and plumbing drawings for your builders.",
+    "pl3.for": "Every drawing the renovation needs, from underfloor heating to the finishes schedule.",
+    "pl2.plus": "Everything in Layout",
+    "pl3.plus": "Everything in Basic",
+    "fx.kicker": "3D visualisation",
+    "fx.h2": "See your home in 3D first",
+    "fx.p": "From your floor plan I build the whole flat in 3D, furniture and light included.",
+    "fx.btn": "See packages",
+    "pl1.btn": "Choose Layout",
+    "pl2.btn": "Choose Basic",
+    "pl3.btn": "Choose Full",
     "tbl.plan": "Layout",
     "tbl.basic": "Basic",
     "tbl.full": "Full",
@@ -116,7 +143,6 @@ const AD_I18N = {
     "f14": "Skirting and cornice plan",
     "f15": "Wall elevations",
     "f16": "Finishes schedule (tiles, laminate, LVT, parquet, etc.)",
-    "tbl.price": "Price per m²",
     "tbl.unit": "per m²",
     "tnote": "Project timeline: 1 to 2.5 months. Payment in stages under contract: in roubles to a Russian card, or in dollars / lari to a Georgian card.",
     "extras.title": "Additional services — priced separately",
@@ -133,8 +159,6 @@ const AD_I18N = {
     "footer.tag": "Interior design · calm spaces for mindful living",
     "footer.copy": "© 2026 Alyonaa Design · Batumi",
     "footer.online": "Online worldwide",
-    "tt.more": "Plus {n} more in the higher packages",
-    "tt.max": "The most complete package",
   },
 };
 
@@ -163,8 +187,8 @@ function adApplyLang(lang) {
     b.classList.toggle("on", b.getAttribute("data-lang") === lang)
   );
 
-  /* мобильные табы тарифов собираются из таблицы — пересобираем на новом языке */
-  if (typeof window.buildTariffTabs === "function") window.buildTariffTabs();
+  /* валюта цен по умолчанию зависит от языка (script.js: RU → ₽, EN → $) */
+  if (typeof window.adOnLang === "function") window.adOnLang(lang);
 
   try { localStorage.setItem("ad_lang", lang); } catch (_) {}
 }
