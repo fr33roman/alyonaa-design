@@ -1,285 +1,288 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alyonaa — дизайн интерьера для осознанной жизни</title>
-  <meta name="description" content="Алёна Андреева — дизайнер интерьера. Спокойные, продуманные пространства. Проект с визуализациями и планами онлайн по всему миру.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <script>document.documentElement.classList.add("js");</script>
-  <!-- 3D-библиотека для блока «Планировка в 3D»; грузится, только когда до блока докрутили (fx/loader.js) -->
-  <script type="importmap">
-  { "imports": {
-    "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
-    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
-  } }
-  </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alyonaa Design — дизайн интерьера для осознанной жизни</title>
+<meta name="description" content="Алёна Андреева — дизайнер интерьера. Проект с визуализациями и чертежами онлайн по всему миру.">
+<meta name="theme-color" content="#120f0d">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
+<!-- общие градиенты для обводок, которые рисуют себя (А5) -->
+<svg class="defs" width="0" height="0" aria-hidden="true" focusable="false"><defs>
+<linearGradient id="gA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e6cfa4"/><stop offset=".4" stop-color="#b87a52"/><stop offset=".75" stop-color="#c9958c"/><stop offset="1" stop-color="#8fa08a"/></linearGradient>
+<linearGradient id="gB" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fa08a"/><stop offset=".35" stop-color="#e6cfa4"/><stop offset=".7" stop-color="#b87a52"/><stop offset="1" stop-color="#c9958c"/></linearGradient>
+<linearGradient id="gC" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#c9958c"/><stop offset=".5" stop-color="#e6cfa4"/><stop offset="1" stop-color="#8fa08a"/></linearGradient>
+</defs></svg>
+<div class="grain" aria-hidden="true"></div>
+<div class="lamp" id="lamp" aria-hidden="true"></div>
+<div class="scroll-line" id="scrollLine" aria-hidden="true"></div>
 
-<!-- NAV -->
 <header class="nav" id="nav">
-  <div class="wrap nav-inner">
-    <a class="nav-left-label" href="https://instagram.com/alyonaa_design" target="_blank" rel="noopener" data-i18n="nav.left">Дизайнер интерьера</a>
-    <a class="brand" href="#top">Alyonaa&nbsp;Design</a>
-    <div class="nav-right-group">
-      <div class="lang-sw" role="group" aria-label="Язык / Language">
-        <button type="button" data-lang="ru" class="on">RU</button><span class="sep">/</span><button type="button" data-lang="en">EN</button>
-      </div>
-      <a class="nav-contacts" href="#contact" data-i18n="nav.contacts">Контакты</a>
-      <button class="nav-menu-btn" id="menuOpen" aria-label="Menu"><span data-i18n="nav.menu">Меню</span> <span class="menu-ic"><span></span><span></span><span></span></span></button>
-    </div>
-  </div>
+<div class="wrap nav-in">
+<a class="brand" href="#top">Alyonaa <em>Design</em></a>
+<nav class="nav-links" aria-label="Разделы">
+<a href="#about">О дизайнере</a><a href="#projects">Проекты</a><a href="#process">Как работаем</a><a href="#plans">Цены</a>
+</nav>
+<a class="nav-cta glow-host ring rv1" href="#contact">Контакты</a>
+</div>
 </header>
 
-<div class="panel-overlay" id="panelOverlay"></div>
-<aside class="side-panel" id="sidePanel" aria-label="Menu">
-  <button class="side-close" id="menuClose" aria-label="Close">✕</button>
-  <nav class="side-links">
-    <a href="#philosophy" data-i18n="menu.about">О дизайнере</a>
-    <a href="#gallery" data-i18n="menu.projects">Проекты</a>
-    <a href="#services" data-i18n="menu.services">Услуги и цены</a>
-    <a href="#contact" data-i18n="menu.contact">Контакты</a>
-  </nav>
-</aside>
-
 <main id="top">
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-bg"><img src="img/p1-2.jpg" alt="Alyonaa Design — interior"></div>
-    <div class="hero-content">
-      <h1 data-i18n="hero.h1">Пространства<br>для осознанной жизни</h1>
-      <p data-i18n="hero.p">Создаю продуманные интерьеры для вас по всему миру.</p>
-      <a class="btn btn-light" href="#contact" data-i18n="hero.btn">Задать вопрос</a>
-    </div>
-    <div class="scroll-cue" data-i18n="hero.scroll">прокрутите вниз</div>
-  </section>
+<!-- ПЕРВЫЙ ЭКРАН: фото интерьера фоном, перетекает в тёмный фон сайта -->
+<section class="hero" id="hero">
+<div class="hero-bg" id="heroBg" aria-hidden="true" data-slides="img/hero/2.1.webp,img/hero/4.2.webp,img/hero/3.1.webp,img/hero/1.2.webp"><img class="hs on" src="img/hero/1.1.webp" alt="" fetchpriority="high"></div>
+<div class="wrap hero-grid">
+<div class="hero-text">
+<span class="kicker rv-up">Дизайнер интерьера · Батуми</span>
+<h1 class="split" data-split>Спокойный дом<br>для вашей <em>настоящей</em> жизни</h1>
+<p class="hero-p rv-up">Алёна Андреева. Проект с визуализациями и чертежами для строителей, онлайн по всему миру.</p>
+<div class="hero-btns rv-up">
+<a class="btn btn-gold mag" href="#contact"><span>Задать вопрос</span></a>
+<a class="btn btn-ghost mag" href="#projects"><span>Смотреть проекты</span></a>
+</div>
+<div class="hero-stats">
+<div class="chip ring rv2 glow-host"><b>4+</b><span>года практики</span></div>
+<div class="chip ring rv1 glow-host"><b>3</b><span>страны</span></div>
+</div>
+</div>
+</div>
+</section>
 
-  <!-- PHILOSOPHY -->
-  <section class="section philosophy" id="philosophy">
-    <div class="wrap philo-grid">
-      <div class="philo-photo reveal"><img src="img/alyona-1.jpg" alt="Alyona Andreeva, interior designer"></div>
-      <div class="philo-text reveal">
-        <span class="kicker" data-i18n="philo.kicker">Философия</span>
-        <h2 data-i18n="philo.h2">Меня рекомендуют близким</h2>
-        <p data-i18n="philo.p1">Алёна Андреева — ваш дизайнер интерьера! Главное для меня — вы, а не рамки конкретного стиля. Мы вместе поймём, какая атмосфера делает именно ВАШ дом по-настоящему ВАШИМ.</p>
-        <p data-i18n="philo.p2">Я создаю не просто картинки, а продуманную функциональность и детальные чертежи для строителей. У меня за плечами более четырёх лет работы в Грузии, России, Беларуси и по всему миру.</p>
-        <a class="btn" href="#contact" data-i18n="philo.btn">Связаться</a>
-      </div>
-    </div>
-  </section>
+<!-- О СЕБЕ -->
+<section class="section about" id="about">
+<div class="wrap about-grid">
+<div class="about-photo rvl">
+<div class="portrait ring rv1 glow-host"><img src="img/alyona-1.jpg" alt="Алёна Андреева, дизайнер интерьера" loading="lazy"></div>
+<div class="about-badge ring rv2 glow-host"><span>Онлайн по всему миру</span><b>лично в Батуми</b></div>
+</div>
+<div class="about-text">
+<span class="kicker rv-up">О дизайнере</span>
+<h2 class="split" data-split>Меня рекомендуют <em>близким</em></h2>
+<p class="rv-up">Алёна Андреева — ваш дизайнер интерьера. Главное для меня — вы, а не рамки конкретного стиля. Мы вместе поймём, какая атмосфера делает именно ваш дом по-настоящему вашим.</p>
+<p class="rv-up">Я создаю не просто картинки, а продуманную функциональность и детальные чертежи для строителей.</p>
+<ul class="facts rv-up">
+<li class="fact ring rv3 glow-host"><b>4+</b><span>года практики</span></li>
+<li class="fact ring rv2 glow-host"><b>3</b><span>страны: Грузия, Россия, Беларусь</span></li>
+<li class="fact ring rv1 glow-host"><b>1–2,5</b><span>месяца на проект</span></li>
+</ul>
+</div>
+</div>
+</section>
 
-  <!-- ПЛАНИРОВКА В 3D: при прокрутке чертёж встаёт в объём, комнаты наполняются мебелью -->
-  <section class="fx fx--tall" id="plan3d" data-fx="floorplan" data-scroll style="--h:280vh">
-    <div class="fx__stage">
-      <div class="fx__cap">
-        <span class="kicker" data-i18n="fx.kicker">3D-визуализация</span>
-        <h2 data-i18n="fx.h2">Квартира в 3D до ремонта</h2>
-        <p data-i18n="fx.p">По вашему плану соберу квартиру в 3D, с мебелью и светом.</p>
-        <a class="btn" href="#services" data-i18n="fx.btn">Смотреть тарифы</a>
-      </div>
-    </div>
-  </section>
+<!-- ПРОЕКТЫ: вкладки, в каждом проекте сразу видна мозаика из фото -->
+<section class="section projects" id="projects">
+<div class="wrap">
+<div class="head">
+<span class="kicker rv-up">Проекты</span>
+<h2 class="split" data-split>Примеры <em>работ</em></h2>
+<p class="rv-up">Четыре проекта. Нажмите на фото, чтобы открыть его на весь экран.</p>
+</div>
+<div class="pj-stage" id="pjStage">
+<div class="pj pj--4" id="pj1" role="tabpanel" aria-labelledby="pjt1">
+<p class="pj-cap">Гостиная, столовая и рабочий уголок</p>
+<div class="pj-grid">
+<figure class="fr ma ring rv2 glow-host" data-lb data-full="img/big/1.1.webp"><img src="img/1.1.webp" alt="Гостиная и кухня" loading="lazy" draggable="false"></figure>
+<figure class="fr mb ring rv2 glow-host" data-lb data-full="img/big/1.2.webp"><img src="img/1.2.webp" alt="Гостиная, зона телевизора" loading="lazy" draggable="false"></figure>
+<figure class="fr mc ring rv3 glow-host" data-lb data-full="img/big/1.3.webp"><img src="img/1.3.webp" alt="Столовая" loading="lazy" draggable="false"></figure>
+<figure class="fr md ring rv3 glow-host" data-lb data-full="img/big/1.4.webp"><img src="img/1.4.webp" alt="Рабочий уголок" loading="lazy" draggable="false"></figure>
+</div>
+</div>
+<div class="pj pj--3" id="pj2" role="tabpanel" aria-labelledby="pjt2" hidden>
+<p class="pj-cap">Обеденная зона и спальня</p>
+<div class="pj-grid">
+<figure class="fr ma ring rv3 glow-host" data-lb data-full="img/big/2.1.webp"><img src="img/2.1.webp" alt="Обеденная зона" loading="lazy" draggable="false"></figure>
+<figure class="fr mb ring rv2 glow-host" data-lb data-full="img/big/2.2.webp"><img src="img/2.2.webp" alt="Спальня" loading="lazy" draggable="false"></figure>
+<figure class="fr mc ring rv1 glow-host" data-lb data-full="img/big/2.3.webp"><img src="img/2.3.webp" alt="Спальня, прикроватные тумбы" loading="lazy" draggable="false"></figure>
+</div>
+</div>
+<div class="pj pj--2" id="pj3" role="tabpanel" aria-labelledby="pjt3" hidden>
+<p class="pj-cap">Гостиная с кухней и спальня</p>
+<div class="pj-grid">
+<figure class="fr ma ring rv2 glow-host" data-lb data-full="img/big/3.1.webp"><img src="img/3.1.webp" alt="Гостиная и кухня" loading="lazy" draggable="false"></figure>
+<figure class="fr mb ring rv2 glow-host" data-lb data-full="img/big/3.2.webp"><img src="img/3.2.webp" alt="Спальня" loading="lazy" draggable="false"></figure>
+</div>
+</div>
+<div class="pj pj--3" id="pj4" role="tabpanel" aria-labelledby="pjt4" hidden>
+<p class="pj-cap">Квартира с бордовой кухней</p>
+<div class="pj-grid">
+<figure class="fr ma ring rv3 glow-host" data-lb data-full="img/big/4.1.webp"><img src="img/4.1.webp" alt="Обеденный уголок у окна" loading="lazy" draggable="false"></figure>
+<figure class="fr mb ring rv3 glow-host" data-lb data-full="img/big/4.2.webp"><img src="img/4.2.webp" alt="Кухня: бирюзовые верхние шкафы, бордовые нижние" loading="lazy" draggable="false"></figure>
+<figure class="fr mc ring rv1 glow-host" data-lb data-full="img/big/4.3.webp"><img src="img/4.3.webp" alt="Обеденный уголок, вид сбоку" loading="lazy" draggable="false"></figure>
+</div>
+</div>
+</div>
+<div class="pj-dots" role="tablist" aria-label="Проекты">
+<button class="pj-dot" role="tab" id="pjt1" aria-controls="pj1" aria-selected="true" aria-label="Проект 1, 4 фото" type="button"></button>
+<button class="pj-dot" role="tab" id="pjt2" aria-controls="pj2" aria-selected="false" aria-label="Проект 2, 3 фото" type="button"></button>
+<button class="pj-dot" role="tab" id="pjt3" aria-controls="pj3" aria-selected="false" aria-label="Проект 3, 2 фото" type="button"></button>
+<button class="pj-dot" role="tab" id="pjt4" aria-controls="pj4" aria-selected="false" aria-label="Проект 4, 3 фото" type="button"></button>
+</div>
+<div class="pj-end"><a class="btn btn-gold mag" href="https://instagram.com/alyonaa_design" target="_blank" rel="noopener"><span>Больше проектов в Instagram</span></a></div>
+</div>
+</section>
 
-  <!-- GALLERY -->
-  <section class="section gallery" id="gallery">
-    <div class="wrap">
-      <div class="head reveal">
-        <span class="kicker" data-i18n="gal.kicker">Проекты</span>
-        <h2 class="title" data-i18n="gal.h2">Примеры работ</h2>
-      </div>
-      <div class="proj-car reveal">
-        <div class="proj-viewport">
-          <div class="proj-track" id="projTrack">
+<!-- КАК РАБОТАЕМ -->
+<section class="section process" id="process">
+<div class="wrap">
+<div class="head">
+<span class="kicker rv-up">Как работаем</span>
+<h2 class="split" data-split>Полностью <em>онлайн</em></h2>
+<p class="rv-up">Проект с визуализациями и чертежами без вашего присутствия на объекте. От 2 до 4 этапов, зависит от тарифа: договор и предоплата за каждый этап.</p>
+</div>
+<ul class="terms">
+<li class="term" data-draw="rect"><span class="term-ic"><svg viewBox="0 0 32 32"><rect x="3" y="5" width="26" height="18" rx="3"/><path d="M11 28h10M16 23v5"/></svg></span><h3>Онлайн по всему миру</h3><p>Лично в Батуми: замер и сопровождение закупок.</p></li>
+<li class="term" data-draw="rect"><span class="term-ic"><svg viewBox="0 0 32 32"><path d="M5 5h22v22H5z"/><path d="M5 14h12M17 14v13M23 5v5"/></svg></span><h3>Что нужно от вас</h3><p>План квартиры с размерами и фото или видео объекта.</p></li>
+<li class="term" data-draw="rect"><span class="term-ic"><svg viewBox="0 0 32 32"><rect x="5" y="7" width="22" height="20" rx="3"/><path d="M5 13h22M11 4v6M21 4v6"/></svg></span><h3><span class="dg">1–2,5</span> месяца</h3><p>Срок проекта зависит от метража.</p></li>
+<li class="term" data-draw="rect"><span class="term-ic"><svg viewBox="0 0 32 32"><rect x="3" y="8" width="26" height="17" rx="3"/><path d="M3 13h26M8 20h6"/></svg></span><h3>Оплата по договору</h3><p>₽ на российскую карту, $ и ₾ на грузинскую.</p></li>
+</ul>
+</div>
+</section>
 
-            <div class="proj-slide">
-              <div class="pbento n3">
-                <div class="pt"><img src="img/p1-1.jpg" alt="Project 1 — interior"></div>
-                <div class="pt"><img src="img/p1-3.jpg" alt="Project 1 — interior"></div>
-                <div class="pt"><img src="img/p1-4.jpg" alt="Project 1 — interior"></div>
-              </div>
-            </div>
+<!-- ТАРИФЫ -->
+<section class="section plans-sec" id="plans">
+<div class="plans-bg" aria-hidden="true"><img src="img/3.1.webp" alt="" loading="lazy"></div>
+<div class="wrap">
+<div class="head">
+<span class="kicker rv-up">Услуги и цены</span>
+<h2 class="split" data-split>Что входит <em>в тарифы</em></h2>
+<p class="rv-up">Стоимость считается за квадратный метр. Чем выше тариф, тем полнее комплект проектной документации.</p>
+</div>
+<div class="cur rv-up" role="group" aria-label="Валюта цен">
+<span class="cur-l">Цены в валюте</span>
+<button type="button" class="cur-b" data-cur="rub" aria-pressed="true"><b>₽</b> RUB</button>
+<button type="button" class="cur-b" data-cur="usd" aria-pressed="false"><b>$</b> USD</button>
+<button type="button" class="cur-b" data-cur="gel" aria-pressed="false"><b>₾</b> GEL</button>
+</div>
+<div class="plans" id="plansGrid">
+<article class="plan ring rv1 glow-host">
+<span class="plan-tag">Зонирование и 3D</span>
+<h3>Планировка</h3>
+<p class="plan-for">Зонирование квартиры и 3D-вид будущего интерьера до начала ремонта.</p>
+<div class="plan-price"><b data-rub="700 ₽" data-usd="9 $" data-gel="24 ₾">700 ₽</b><span>за м²</span></div>
+<p class="plan-alt" data-rub="9 $ · 24 ₾" data-usd="700 ₽ · 24 ₾" data-gel="700 ₽ · 9 $">9 $ · 24 ₾</p>
+<span class="stars" role="img" aria-label="5 из 16 пунктов"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></span>
+<p class="plan-cnt"><b>5</b> из 16 пунктов</p>
+<ul class="plan-list"><li>Исходный план</li><li>План демонтажа / монтажа</li><li>Новый обмерный план</li><li>Планировочное решение</li><li>3D-визуализация интерьера</li></ul>
+<a class="btn btn-line" href="#contact"><span>Выбрать «Планировку»</span></a>
+</article>
+<article class="plan plan--main ring rv4 glow-host">
+<i class="comet" aria-hidden="true"></i><i class="comet comet--glow" aria-hidden="true"></i>
+<span class="plan-tag plan-tag--hot">Рекомендуем</span>
+<h3>Базовый</h3>
+<p class="plan-for">3D-визуализация и чертежи электрики, освещения и сантехники для строителей.</p>
+<div class="plan-price"><b data-rub="1200 ₽" data-usd="15 $" data-gel="38 ₾">1200 ₽</b><span>за м²</span></div>
+<p class="plan-alt" data-rub="15 $ · 38 ₾" data-usd="1200 ₽ · 38 ₾" data-gel="1200 ₽ · 15 $">15 $ · 38 ₾</p>
+<span class="stars" role="img" aria-label="10 из 16 пунктов"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></span>
+<p class="plan-cnt"><b>10</b> из 16 пунктов</p>
+<ul class="plan-list"><li class="plus">Всё из «Планировки»</li><li>План потолков</li><li>План электрики</li><li>План освещения</li><li>План управления освещением</li><li>План сантехники</li></ul>
+<a class="btn btn-gold" href="#contact"><span>Выбрать «Базовый»</span></a>
+</article>
+<article class="plan ring rv2 glow-host">
+<span class="plan-tag">Все чертежи</span>
+<h3>Полный</h3>
+<p class="plan-for">Все чертежи для ремонта, от тёплых полов до таблицы отделки.</p>
+<div class="plan-price"><b data-rub="1600 ₽" data-usd="21 $" data-gel="55 ₾">1600 ₽</b><span>за м²</span></div>
+<p class="plan-alt" data-rub="21 $ · 55 ₾" data-usd="1600 ₽ · 55 ₾" data-gel="1600 ₽ · 21 $">21 $ · 55 ₾</p>
+<span class="stars" role="img" aria-label="16 из 16 пунктов"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span>
+<p class="plan-cnt"><b>16</b> из 16 пунктов</p>
+<ul class="plan-list"><li class="plus">Всё из «Базового»</li><li>План тёплых полов</li><li>План раскладки полов</li><li>План дверей и кондиционеров</li><li>План плинтусов и карнизов</li><li>Развёртки стен</li><li>Таблица отделки по проекту (плитка, ламинат, кварцвинил, паркет и т.д.)</li></ul>
+<a class="btn btn-line" href="#contact"><span>Выбрать «Полный»</span></a>
+</article>
+</div>
 
-            <div class="proj-slide">
-              <div class="pbento n3">
-                <div class="pt"><img src="img/p2-1.jpg" alt="Project 2 — interior"></div>
-                <div class="pt"><img src="img/p2-2.jpg" alt="Project 2 — interior"></div>
-                <div class="pt"><img src="img/p2-3.jpg" alt="Project 2 — interior"></div>
-              </div>
-            </div>
+<div class="cmp glow-host ring rv3" id="cmp">
+<h3 class="cmp-t">Все <span class="dg">16</span> пунктов рядом</h3>
+<table>
+<thead><tr><th scope="col"><span class="sr">Пункт</span></th><th scope="col"><b>5</b>Планировка</th><th scope="col" class="hot"><b>10</b>Базовый</th><th scope="col"><b>16</b>Полный</th></tr></thead>
+<tbody>
+<tr><th scope="row"><span class="num">01</span>Исходный план</th><td class="y"><svg viewBox="0 0 16 16" aria-label="входит"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></td><td class="y"><svg viewBox="0 0 16 16" aria-label="входит"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></td><td class="y"><svg viewBox="0 0 16 16" aria-label="входит"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></td></tr>
+<tr><th scope="row"><span class="num">02</span>План демонтажа / монтажа</th><td class="y"><svg viewBox="0 0 16 16" aria-label="входит"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></td><td class="y"><svg viewBox="0 0 16 16" aria-label="входит"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></td><td class="y"><svg viewBox="0 0 16 16" aria-label="входит"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></td></tr>
+<tr><th scope="row"><span class="num">03</span>Новый обмерный план</th><td class="y"><svg viewBox="0 0 16 16" aria-label="входит"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></td><td class="y"><svg viewBox="0 0 16 16" aria-label="входит"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></td><td class="y"><svg viewBox="0 0 16 16" aria-label="входит"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></td></tr>
+<tr><th scope="row"><span class="num">04</span>Планировочное решение</th><td class="y"><svg viewBox="0 0 16 16" aria-label="входит"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></td><td class="y"><svg viewBox="0 0 16 16" aria-label="входит"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></td><td class="y"><svg viewBox="0 0 16 16" aria-label="входит"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></td></tr>
+<tr><th scope="row"><span class="num">05</span>3D-визуализация интерьера</th><td class="y"><svg viewBox="0 0 16 16" aria-label="входит"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></td><td class="y"><svg viewBox="0 0 16 16" aria-label="входит"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></td><td class="y"><svg viewBox="0 0 16 16" aria-label="входит"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></td></tr>
+<tr><th scope="row"><span class="num">06</span>План потолков</th><td class="n"><i aria-label="не входит"></i></td><td class="y"><svg viewBox="0 0 16 16" aria-label="входит"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></td><td class="y"><svg viewBox="0 0 16 16" aria-label="входит"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></td></tr>
+<tr><th scope="row"><span class="num">07</span>План электрики</th><td class="n"><i aria-label="не входит"></i></td><td class="y"><svg viewBox="0 0 16 16" aria-label="входит"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></td><td class="y"><svg viewBox="0 0 16 16" aria-label="входит"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></td></tr>
+<tr><th scope="row"><span class="num">08</span>План освещения</th><td class="n"><i aria-label="не входит"></i></td><td class="y"><svg viewBox="0 0 16 16" aria-label="входит"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></td><td class="y"><svg viewBox="0 0 16 16" aria-label="входит"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></td></tr>
+<tr><th scope="row"><span class="num">09</span>План управления освещением</th><td class="n"><i aria-label="не входит"></i></td><td class="y"><svg viewBox="0 0 16 16" aria-label="входит"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></td><td class="y"><svg viewBox="0 0 16 16" aria-label="входит"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></td></tr>
+<tr><th scope="row"><span class="num">10</span>План сантехники</th><td class="n"><i aria-label="не входит"></i></td><td class="y"><svg viewBox="0 0 16 16" aria-label="входит"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></td><td class="y"><svg viewBox="0 0 16 16" aria-label="входит"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></td></tr>
+<tr><th scope="row"><span class="num">11</span>План тёплых полов</th><td class="n"><i aria-label="не входит"></i></td><td class="n"><i aria-label="не входит"></i></td><td class="y"><svg viewBox="0 0 16 16" aria-label="входит"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></td></tr>
+<tr><th scope="row"><span class="num">12</span>План раскладки полов</th><td class="n"><i aria-label="не входит"></i></td><td class="n"><i aria-label="не входит"></i></td><td class="y"><svg viewBox="0 0 16 16" aria-label="входит"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></td></tr>
+<tr><th scope="row"><span class="num">13</span>План дверей и кондиционеров</th><td class="n"><i aria-label="не входит"></i></td><td class="n"><i aria-label="не входит"></i></td><td class="y"><svg viewBox="0 0 16 16" aria-label="входит"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></td></tr>
+<tr><th scope="row"><span class="num">14</span>План плинтусов и карнизов</th><td class="n"><i aria-label="не входит"></i></td><td class="n"><i aria-label="не входит"></i></td><td class="y"><svg viewBox="0 0 16 16" aria-label="входит"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></td></tr>
+<tr><th scope="row"><span class="num">15</span>Развёртки стен</th><td class="n"><i aria-label="не входит"></i></td><td class="n"><i aria-label="не входит"></i></td><td class="y"><svg viewBox="0 0 16 16" aria-label="входит"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></td></tr>
+<tr><th scope="row"><span class="num">16</span>Таблица отделки по проекту (плитка, ламинат, кварцвинил, паркет и т.д.)</th><td class="n"><i aria-label="не входит"></i></td><td class="n"><i aria-label="не входит"></i></td><td class="y"><svg viewBox="0 0 16 16" aria-label="входит"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></td></tr>
+</tbody>
+</table>
+</div>
 
-            <div class="proj-slide">
-              <div class="pbento n2">
-                <div class="pt"><img src="img/p3-1.jpg" alt="Project 3 — interior"></div>
-                <div class="pt"><img src="img/p3-2.jpg" alt="Project 3 — interior"></div>
-              </div>
-            </div>
+<div class="extras-block">
+<h3 class="extras-t split" data-split>Дополнительные услуги — отдельно</h3>
+<div class="extras">
+<article class="xcard glow-host"><span class="x-ic"><svg viewBox="0 0 32 32"><path d="M4 22 22 4l6 6-18 18z"/><path d="M9 17l2 2M12 14l3 3M15 11l2 2M18 8l3 3"/></svg></span><h4>Замер объекта в Батуми</h4><p>60 $ · 160 ₾ (периферия 75 $ · 200 ₾)</p></article>
+<article class="xcard glow-host"><span class="x-ic"><svg viewBox="0 0 32 32"><rect x="6" y="4" width="20" height="24" rx="2"/><path d="M11 10h10M11 15h10M11 20h6"/></svg></span><h4>Спецификация на мебель и отделку (таблица со ссылками и артикулами товаров из реальных магазинов)</h4><p>200 $ · 540 ₾</p></article>
+<article class="xcard glow-host"><span class="x-ic"><svg viewBox="0 0 32 32"><path d="M5 17v-4a3 3 0 0 1 3-3h16a3 3 0 0 1 3 3v4"/><path d="M3 17a2 2 0 0 1 4 0v3h18v-3a2 2 0 0 1 4 0v7H3z"/><path d="M7 24v3M25 24v3"/></svg></span><h4>Комплектация с сопровождением — лично в Батуми</h4><p>300 $ · 800 ₾ / месяц</p></article>
+<article class="xcard glow-host"><span class="x-ic"><svg viewBox="0 0 32 32"><path d="M6 20a10 10 0 0 1 20 0"/><path d="M4 20h24v3H4zM14 10V7h4v3M16 10v4"/></svg></span><h4>Консультация на стройке (разовый выезд)</h4><p>30 $ · 80 ₾</p></article>
+</div>
+</div>
+</div>
+</section>
 
-          </div>
-        </div>
-        <div class="proj-nav">
-          <button class="proj-btn" id="projPrev" aria-label="Previous project">←</button>
-          <div class="proj-dots" id="projDots"></div>
-          <button class="proj-btn" id="projNext" aria-label="Next project">→</button>
-        </div>
-      </div>
-      <div class="more reveal"><a class="btn" href="https://instagram.com/alyonaa_design" target="_blank" rel="noopener" data-i18n="gal.more">Больше проектов в Instagram</a></div>
-    </div>
-  </section>
+<!-- ЦИТАТА -->
+<section class="quote" id="quote">
+<div class="quote-frame" data-draw="rect" data-echo data-r="36">
+<div class="quote-bg"><img src="img/2.3.webp" alt="" loading="lazy"></div>
+<div class="quote-in">
+<span class="qmark" aria-hidden="true">“</span>
+<blockquote id="qtext">Спокойный дом, в котором хочется жить, а не только фотографировать</blockquote>
+<span class="qsign">Алёна Андреева</span>
+</div>
+</div>
+</section>
 
-  <!-- TESTIMONIAL (акцентный блок: после примеров работ, перед тарифами) -->
-  <section class="testi">
-    <div class="testi-bg"><img src="img/p2-3.jpg" alt="Alyonaa Design — interior"></div>
-    <div class="inner reveal">
-      <blockquote data-i18n="testi">Настоящий дом — это про вашу жизнь и комфорт, а не про идеальные картинки.</blockquote>
-    </div>
-  </section>
-
-  <!-- SERVICES / TARIFFS TABLE -->
-  <section class="section services" id="services">
-    <div class="wrap">
-      <div class="head reveal">
-        <span class="kicker" data-i18n="svc.kicker">Услуги и цены</span>
-        <h2 class="title" data-i18n="svc.h2">Что входит в тарифы</h2>
-        <p data-i18n="svc.p">Стоимость считается за квадратный метр. Чем выше тариф — тем полнее комплект проектной документации.</p>
-      </div>
-
-      <!-- валюта цен: выбор запоминается; без выбора — по языку сайта (RU → ₽, EN → $) -->
-      <div class="cur reveal" role="group" aria-labelledby="curLabel">
-        <span class="cur-l" id="curLabel" data-i18n="cur.label">Цены в валюте</span>
-        <button type="button" class="cur-b" data-cur="rub" aria-pressed="true"><b>₽</b> RUB</button>
-        <button type="button" class="cur-b" data-cur="usd" aria-pressed="false"><b>$</b> USD</button>
-        <button type="button" class="cur-b" data-cur="gel" aria-pressed="false"><b>₾</b> GEL</button>
-      </div>
-
-      <!-- тарифы карточками (было: таблица). Цены — заданные Алёной в трёх валютах, не пересчёт.
-           В объёме: «Базовый» впереди, боковые чуть развёрнуты и отодвинуты вглубь; появляются всем рядом -->
-      <div class="plans reveal">
-        <article class="plan">
-          <span class="plan-tag" data-i18n="pl1.tag">Зонирование и 3D</span>
-          <h3 class="plan-name" data-i18n="tbl.plan">Планировка</h3>
-          <p class="plan-for" data-i18n="pl1.for">Зонирование квартиры и 3D-вид будущего интерьера до начала ремонта.</p>
-          <div class="plan-price"><b class="plan-sum" data-rub="700 ₽" data-usd="9 $" data-gel="24 ₾">700 ₽</b><span class="plan-unit" data-i18n="tbl.unit">за м²</span></div>
-          <p class="plan-alt" data-rub="9 $ · 24 ₾" data-usd="700 ₽ · 24 ₾" data-gel="700 ₽ · 9 $">9 $ · 24 ₾</p>
-          <ul class="plan-list">
-            <li data-i18n="f1">Исходный план</li>
-            <li data-i18n="f2">План демонтажа / монтажа</li>
-            <li data-i18n="f3">Новый обмерный план</li>
-            <li data-i18n="f4">Планировочное решение</li>
-            <li data-i18n="f5">3D-визуализация интерьера</li>
-          </ul>
-          <a class="btn plan-btn" href="#contact" data-i18n="pl1.btn">Выбрать «Планировку»</a>
-        </article>
-
-        <article class="plan plan--main">
-          <span class="plan-tag" data-i18n="pl2.tag">Со скидкой</span>
-          <h3 class="plan-name" data-i18n="tbl.basic">Базовый</h3>
-          <p class="plan-for" data-i18n="pl2.for">3D-визуализация и чертежи электрики, освещения и сантехники для строителей.</p>
-          <!-- скидка только на «Базовый»: обычная цена 1200 ₽ / 15 $ / 38 ₾, сейчас — 1000 ₽ / 13 $ / 34 ₾ -->
-          <div class="plan-price">
-            <b class="plan-sum" data-rub="1000 ₽" data-usd="13 $" data-gel="34 ₾">1000 ₽</b>
-            <s class="plan-old" data-rub="1200 ₽" data-usd="15 $" data-gel="38 ₾">1200 ₽</s>
-            <span class="plan-off" data-rub="−17%" data-usd="−13%" data-gel="−11%">−17%</span>
-            <span class="plan-unit" data-i18n="tbl.unit">за м²</span>
-          </div>
-          <p class="plan-alt" data-rub="13 $ · 34 ₾" data-usd="1000 ₽ · 34 ₾" data-gel="1000 ₽ · 13 $">13 $ · 34 ₾</p>
-          <ul class="plan-list">
-            <li class="plan-plus" data-i18n="pl2.plus">Всё из «Планировки»</li>
-            <li data-i18n="f6">План потолков</li>
-            <li data-i18n="f7">План электрики</li>
-            <li data-i18n="f8">План освещения</li>
-            <li data-i18n="f9">План управления освещением</li>
-            <li data-i18n="f10">План сантехники</li>
-          </ul>
-          <a class="btn btn-fill plan-btn" href="#contact" data-i18n="pl2.btn">Выбрать «Базовый»</a>
-        </article>
-
-        <article class="plan">
-          <span class="plan-tag" data-i18n="pl3.tag">Все чертежи</span>
-          <h3 class="plan-name" data-i18n="tbl.full">Полный</h3>
-          <p class="plan-for" data-i18n="pl3.for">Все чертежи для ремонта, от тёплых полов до таблицы отделки.</p>
-          <div class="plan-price"><b class="plan-sum" data-rub="1600 ₽" data-usd="21 $" data-gel="55 ₾">1600 ₽</b><span class="plan-unit" data-i18n="tbl.unit">за м²</span></div>
-          <p class="plan-alt" data-rub="21 $ · 55 ₾" data-usd="1600 ₽ · 55 ₾" data-gel="1600 ₽ · 21 $">21 $ · 55 ₾</p>
-          <ul class="plan-list">
-            <li class="plan-plus" data-i18n="pl3.plus">Всё из «Базового»</li>
-            <li data-i18n="f11">План тёплых полов</li>
-            <li data-i18n="f12">План раскладки полов</li>
-            <li data-i18n="f13">План дверей и кондиционеров</li>
-            <li data-i18n="f14">План плинтусов и карнизов</li>
-            <li data-i18n="f15">Развёртки стен</li>
-            <li data-i18n="f16">Таблица отделки по проекту (плитка, ламинат, кварцвинил, паркет и т.д.)</li>
-          </ul>
-          <a class="btn plan-btn" href="#contact" data-i18n="pl3.btn">Выбрать «Полный»</a>
-        </article>
-      </div>
-      <p class="tnote" data-i18n="tnote">Срок проекта — от 1 до 2,5 месяцев. Оплата поэтапно по договору: в рублях на российскую карту или в долларах / лари на грузинскую.</p>
-
-      <div class="extras-block reveal">
-        <div class="extras-title" data-i18n="extras.title">Дополнительные услуги — отдельно</div>
-        <div class="extras">
-          <div class="extra-row"><span class="ename" data-i18n="ex1">Замер объекта в Батуми</span><span class="ecost" data-i18n="ex1.cost">60 $ · 160 ₾ (периферия 75 $ · 200 ₾)</span></div>
-          <div class="extra-row"><span class="ename" data-i18n="ex2">Спецификация на мебель и отделку (таблица со ссылками и артикулами товаров из реальных магазинов)</span><span class="ecost">200 $ · 540 ₾</span></div>
-          <div class="extra-row"><span class="ename" data-i18n="ex3">Комплектация с сопровождением — лично в Батуми</span><span class="ecost" data-i18n="ex3.cost">300 $ · 800 ₾ / месяц</span></div>
-          <div class="extra-row"><span class="ename" data-i18n="ex4">Консультация на стройке (разовый выезд)</span><span class="ecost">30 $ · 80 ₾</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section class="section contact" id="contact">
-    <div class="wrap contact-grid2">
-      <div class="contact-photo reveal"><img src="img/alyona-2.jpg" alt="Alyona Andreeva, interior designer"></div>
-      <div class="contact-block reveal">
-        <span class="kicker" data-i18n="contact.kicker">Контакты</span>
-        <h2 data-i18n="contact.h2">Расскажите про ваш дом</h2>
-        <p data-i18n="contact.p">Напишите удобным способом: обсудим задачу, метраж и подберём тариф.</p>
-        <div class="social-row">
-          <a class="social wa" href="https://wa.me/995591036750" target="_blank" rel="noopener">
-            <span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 1.67c2.2 0 4.27.86 5.83 2.42a8.2 8.2 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.25 8.24a8.2 8.2 0 0 1-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.18 8.18 0 0 1-1.26-4.38c.01-4.54 3.7-8.24 8.25-8.24zm-2.9 4.43c-.14 0-.36.05-.55.26-.19.21-.73.71-.73 1.74s.75 2.02.85 2.16c.11.14 1.47 2.24 3.56 3.14.5.21.88.34 1.18.44.5.16.95.14 1.31.08.4-.06 1.23-.5 1.4-.99.18-.48.18-.9.13-.98-.05-.09-.19-.14-.4-.25-.21-.1-1.23-.61-1.42-.68-.19-.07-.33-.1-.47.11-.14.21-.54.68-.66.82-.12.14-.24.16-.45.05-.21-.1-.88-.32-1.68-1.03-.62-.55-1.04-1.24-1.16-1.45-.12-.21-.01-.32.09-.43.09-.09.21-.24.31-.36.1-.12.14-.21.21-.35.07-.14.03-.26-.02-.37-.05-.1-.46-1.13-.64-1.55-.17-.4-.34-.35-.46-.36-.12 0-.26-.01-.4-.01z"/></svg></span>
-            <span class="t"><b>WhatsApp</b><span>+995 591 036 750</span></span>
-            <span class="arr">→</span>
-          </a>
-          <a class="social tg" href="https://t.me/Andreevaa_o" target="_blank" rel="noopener">
-            <span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.94 4.6 18.6 20.3c-.25 1.1-.9 1.37-1.83.86l-5.05-3.72-2.44 2.35c-.27.27-.5.5-1.02.5l.36-5.16 9.4-8.5c.41-.36-.09-.56-.63-.2L5.16 13.3 0 11.7c-1.12-.35-1.14-1.12.24-1.66L20.5 2.27c.93-.34 1.74.22 1.44 2.33z"/></svg></span>
-            <span class="t"><b>Telegram</b><span>@Andreevaa_o</span></span>
-            <span class="arr">→</span>
-          </a>
-          <a class="social ig" href="https://instagram.com/alyonaa_design" target="_blank" rel="noopener">
-            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg></span>
-            <span class="t"><b>Instagram</b><span>@alyonaa_design</span></span>
-            <span class="arr">→</span>
-          </a>
-        </div>
-        <p class="contact-note" data-i18n="contact.note">Онлайн по всему миру · лично в Батуми</p>
-      </div>
-    </div>
-  </section>
+<!-- КОНТАКТЫ -->
+<section class="section contact" id="contact">
+<div class="wrap contact-grid">
+<div class="contact-photo">
+<figure class="arch" data-draw="arch"><img src="img/alyona-2.jpg" alt="Алёна Андреева, дизайнер интерьера" loading="lazy"></figure>
+</div>
+<div class="contact-main">
+<span class="kicker rv-up">Контакты</span>
+<h2 class="split" data-split>Расскажите про <em>ваш дом</em></h2>
+<p class="rv-up">Напишите удобным способом: обсудим задачу, метраж и подберём тариф.</p>
+<div class="socials" id="socials">
+<a class="social glass ring rv1 glow-host" href="https://wa.me/995591036750" target="_blank" rel="noopener"><span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 1.67c2.2 0 4.27.86 5.83 2.42a8.2 8.2 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.25 8.24a8.2 8.2 0 0 1-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.18 8.18 0 0 1-1.26-4.38c.01-4.54 3.7-8.24 8.25-8.24zm-2.9 4.43c-.14 0-.36.05-.55.26-.19.21-.73.71-.73 1.74s.75 2.02.85 2.16c.11.14 1.47 2.24 3.56 3.14.5.21.88.34 1.18.44.5.16.95.14 1.31.08.4-.06 1.23-.5 1.4-.99.18-.48.18-.9.13-.98-.05-.09-.19-.14-.4-.25-.21-.1-1.23-.61-1.42-.68-.19-.07-.33-.1-.47.11-.14.21-.54.68-.66.82-.12.14-.24.16-.45.05-.21-.1-.88-.32-1.68-1.03-.62-.55-1.04-1.24-1.16-1.45-.12-.21-.01-.32.09-.43.09-.09.21-.24.31-.36.1-.12.14-.21.21-.35.07-.14.03-.26-.02-.37-.05-.1-.46-1.13-.64-1.55-.17-.4-.34-.35-.46-.36-.12 0-.26-.01-.4-.01z"/></svg></span><span class="t"><b>WhatsApp</b><span>+995 591 036 750</span></span><span class="arr">→</span></a>
+<a class="social glass ring rv2 glow-host" href="https://t.me/Andreevaa_o" target="_blank" rel="noopener"><span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.94 4.6 18.6 20.3c-.25 1.1-.9 1.37-1.83.86l-5.05-3.72-2.44 2.35c-.27.27-.5.5-1.02.5l.36-5.16 9.4-8.5c.41-.36-.09-.56-.63-.2L5.16 13.3 0 11.7c-1.12-.35-1.14-1.12.24-1.66L20.5 2.27c.93-.34 1.74.22 1.44 2.33z"/></svg></span><span class="t"><b>Telegram</b><span>@Andreevaa_o</span></span><span class="arr">→</span></a>
+<a class="social glass ring rv3 glow-host" href="https://instagram.com/alyonaa_design" target="_blank" rel="noopener"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg></span><span class="t"><b>Instagram</b><span>@alyonaa_design</span></span><span class="arr">→</span></a>
+</div>
+<p class="contact-note rv-up">Онлайн по всему миру · лично в Батуми</p>
+</div>
+</div>
+</section>
 </main>
 
 <footer class="footer">
-  <div class="wrap">
-    <div class="footer-inner">
-      <div class="brand">Alyonaa&nbsp;Design</div>
-      <div class="fcol" data-i18n="footer.tag">Дизайн интерьера · спокойные пространства для осознанной жизни</div>
-      <div class="fcol">
-        <a href="https://wa.me/995591036750" target="_blank" rel="noopener">WhatsApp</a> ·
-        <a href="https://t.me/Andreevaa_o" target="_blank" rel="noopener">Telegram</a> ·
-        <a href="https://instagram.com/alyonaa_design" target="_blank" rel="noopener">Instagram</a>
-      </div>
-    </div>
-    <div class="copyright">
-      <span data-i18n="footer.copy">© 2026 Alyonaa Design · Батуми</span>
-      <span data-i18n="footer.online">Онлайн по всему миру</span>
-    </div>
-  </div>
+<div class="footer-word" id="fword" aria-hidden="true"><span>A</span><span>L</span><span>Y</span><span>O</span><span>N</span><span>A</span><span>A</span></div>
+<div class="wrap footer-in">
+<span class="brand">Alyonaa <em>Design</em></span>
+<span>Дизайн интерьера · Батуми · онлайн по всему миру</span>
+<span class="flinks"><a href="https://wa.me/995591036750" target="_blank" rel="noopener">WhatsApp</a><a href="https://t.me/Andreevaa_o" target="_blank" rel="noopener">Telegram</a><a href="https://instagram.com/alyonaa_design" target="_blank" rel="noopener">Instagram</a></span>
+</div>
+<div class="wrap copy"><span>© 2026 Alyonaa Design</span></div>
 </footer>
 
-<script src="i18n.js"></script>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Фото" hidden>
+<button class="lb-close" id="lbClose" aria-label="Закрыть">✕</button>
+<button class="lb-nav lb-prev" id="lbPrev" aria-label="Назад"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+<figure class="lb-fig"><img id="lbImg" alt=""></figure>
+<button class="lb-nav lb-next" id="lbNext" aria-label="Вперёд"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+<div class="lb-count" id="lbCount"></div>
+</div>
 <script src="script.js"></script>
-<script type="module" src="fx/loader.js"></script>
 </body>
 </html>
