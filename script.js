@@ -283,6 +283,25 @@
     });
   }
 
+  /* ---------- меню по кнопке в шапке ---------- */
+  var menuB = $("#menuB"), menu = $("#menu"), menuT = 0;
+  function setMenu(open, byKey) {
+    clearTimeout(menuT);
+    menuB.setAttribute("aria-expanded", String(open));
+    if (open) {
+      menu.hidden = false; liveIO.observe($(".menu-card", menu));
+      requestAnimationFrame(function () { requestAnimationFrame(function () { menu.classList.add("open"); }); });
+      if (byKey) $("a", menu).focus({ preventScroll: true }); // с клавиатуры — сразу к первому пункту
+    } else {
+      menu.classList.remove("open");
+      menuT = setTimeout(function () { menu.hidden = true; }, reduce ? 0 : 400);
+    }
+  }
+  menuB.addEventListener("click", function (e) { setMenu(menuB.getAttribute("aria-expanded") !== "true", e.detail === 0); });
+  menu.addEventListener("click", function (e) { if (e.target === menu || e.target.closest("a")) setMenu(false); });
+  doc.addEventListener("keydown", function (e) { if (e.key === "Escape" && !menu.hidden) { setMenu(false); menuB.focus(); } });
+  addEventListener("resize", function () { if (innerWidth > 960 && !menu.hidden) setMenu(false); });
+
   /* ---------- фото на весь экран ---------- */
   var items = $$("[data-lb]"), lb = $("#lb"), lbImg = $("#lbImg"), lbCount = $("#lbCount"), cur = 0, lastFocus = null;
   function show(i) {

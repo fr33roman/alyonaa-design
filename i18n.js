@@ -136,7 +136,8 @@
     "Закрыть": "Close",
     "Назад": "Previous",
     "Вперёд": "Next",
-    "Язык": "Language"
+    "Язык": "Language",
+    "Меню": "Menu"
   };
   window.AD_EN = EN;
 
