@@ -84,11 +84,18 @@ em { font-style: italic; color: var(--c1); }
 .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; padding: 14px 0; transition: background .4s, backdrop-filter .4s; }
 .nav.scrolled { background: rgb(18 15 13 / .72); backdrop-filter: blur(14px); }
 .nav-in { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-.brand { font-family: var(--serif); font-size: 1.35rem; letter-spacing: .01em; }
+.brand { font-family: var(--serif); font-size: 1.35rem; letter-spacing: .01em; white-space: nowrap; }
 .brand em { color: var(--c1); }
 .nav-links { display: flex; gap: clamp(18px, 2.6vw, 38px); font-size: .86rem; color: var(--mut); }
 .nav-links a:hover { color: var(--c1); }
 .nav-cta { padding: 10px 24px; border-radius: 999px; font-size: .85rem; font-weight: 600; background: var(--bg2); }
+/* переключатель языка: тонкая капсула, активный — золотом */
+.nav-r { display: flex; align-items: center; gap: 14px; }
+.lang { position: relative; display: flex; padding: 3px; border: 1px solid rgb(230 207 164 / .22); border-radius: 999px; background: rgb(18 15 13 / .35); }
+.lang-b { position: relative; z-index: 1; min-width: 34px; padding: 5px 9px; border: 0; border-radius: 999px; background: none; color: var(--mut);
+  font: 600 .7rem/1 var(--sans); letter-spacing: .12em; cursor: pointer; transition: color .3s, background .3s; }
+.lang-b:hover { color: var(--ink); }
+.lang-b[aria-pressed="true"] { color: var(--bg); background: linear-gradient(135deg, var(--c1), #d4b07e); cursor: default; }
 
 /* ===== первый экран ===== */
 .hero { position: relative; min-height: 100svh; padding: 108px 0 80px; display: flex; align-items: center; overflow: hidden; }
@@ -352,6 +359,15 @@ blockquote .qw.acc { background: linear-gradient(100deg, #f4dfae, var(--c2) 60%,
   .lb-nav { width: 44px; height: 44px; margin-top: -22px; }
   .lb-prev { left: 8px; } .lb-next { right: 8px; }
   .nav-cta { padding: 9px 20px; }
+  .nav-r { gap: 10px; }
+  .lang-b { min-width: 30px; padding: 5px 7px; }
+}
+@media (max-width: 440px) {
+  .nav-in { gap: 10px; }
+  .brand { font-size: 1.12rem; }
+  .nav-cta { padding: 8px 14px; }
+  .nav-r { gap: 8px; }
+  .lang-b { min-width: 0; padding: 5px 6px; }
 }
 
 /* уменьшить движение: обводки стоят, но видны */

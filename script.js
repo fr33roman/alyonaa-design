@@ -206,7 +206,7 @@
   (function () {
     var t = quoteEl.textContent.trim(); quoteEl.textContent = "";
     t.split(/\s+/).forEach(function (w, i, a) {
-      var s = doc.createElement("span"); s.className = "qw" + (/^фотографировать/i.test(w) ? " acc" : ""); s.textContent = w; quoteEl.appendChild(s);
+      var s = doc.createElement("span"); s.className = "qw" + (/^(фотографировать|photograph)/i.test(w) ? " acc" : ""); s.textContent = w; quoteEl.appendChild(s);
       if (i < a.length - 1) quoteEl.appendChild(doc.createTextNode(" ")); quoteWords.push(s);
     });
     quoteEl.setAttribute("aria-label", t);
@@ -260,13 +260,14 @@
 
   /* ---------- валюта цен ---------- */
   var curBtns = $$(".cur-b");
-  function setCur(c) {
+  function setCur(c, save) {
     curBtns.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.cur === c)); });
     $$("[data-rub]").forEach(function (el) { el.textContent = el.getAttribute("data-" + c); });
-    try { localStorage.setItem("ad-cur", c); } catch (e) {}
+    if (save) try { localStorage.setItem("ad-cur", c); } catch (e) {}
   }
-  curBtns.forEach(function (b) { b.addEventListener("click", function () { setCur(b.dataset.cur); }); });
-  try { var sc = localStorage.getItem("ad-cur"); if (sc && sc !== "rub") setCur(sc); } catch (e) {}
+  curBtns.forEach(function (b) { b.addEventListener("click", function () { setCur(b.dataset.cur, true); }); });
+  // английская версия по умолчанию показывает цены в долларах
+  try { var sc = localStorage.getItem("ad-cur") || (doc.documentElement.lang === "en" ? "usd" : ""); if (sc && sc !== "rub") setCur(sc); } catch (e) {}
 
   /* ---------- Б6: магнитные кнопки ---------- */
   if (finePointer && !reduce) {
